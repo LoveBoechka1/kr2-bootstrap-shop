@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блог и статьи — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <!-- Единая навигация (navbar) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Заявка</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="blog.html">Блог</a>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm fw-semibold"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              data-product="Консультация по подбору деталей"
+            >
+              Заказать детали
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5 flex-grow-1">
+    <!-- Информационное сообщение (alert alert-info) -->
+    <div class="alert alert-info" role="alert">
+      Полезные статьи для строителей и коллекционеров: нажмите «Читать далее» на любой карточке, чтобы открыть полный материал.
+    </div>
+
+    <!-- Сетка статей: Заголовок h1 и сетка карточек (col-12 col-md-6 col-lg-4) -->
+    <section aria-label="Статьи блога">
+      <h1 class="mb-4">Блог о конструировании и уходе за LEGO</h1>
+
+      <div class="row g-4">
+        <!-- Статья 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-primary bg-opacity-10 border-bottom d-flex align-items-center justify-content-center p-3">
+              <span class="fw-bold text-primary">Уход и мойка ABS-пластика</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge bg-primary align-self-start mb-2">Инструкция</span>
+              <h2 class="card-title h5">Как правильно мыть б/у детали LEGO в домашних условиях</h2>
+              <p class="card-text text-muted">
+                Разбираем допустимую температуру воды (не выше 40 °C), нейтральные средства и правила сушки без известковых пятен.
+              </p>
+              <button
+                type="button"
+                class="btn btn-outline-primary mt-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#articleModal"
+                data-article-id="wash"
+              >
+                Читать далее
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Статья 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-success bg-opacity-10 border-bottom d-flex align-items-center justify-content-center p-3">
+              <span class="fw-bold text-success">Проверка маркировки Design ID</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge bg-success align-self-start mb-2">Экспертиза</span>
+              <h2 class="card-title h5">Как отличить оригинальный кубик LEGO от копии за 10 секунд</h2>
+              <p class="card-text text-muted">
+                Где расположен микроштамп логотипа и четырехзначный номер формы (Design ID) у деталей System и Technic.
+              </p>
+              <button
+                type="button"
+                class="btn btn-outline-primary mt-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#articleModal"
+                data-article-id="original"
+              >
+                Читать далее
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Статья 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-warning bg-opacity-10 border-bottom d-flex align-items-center justify-content-center p-3">
+              <span class="fw-bold text-dark">Сортировка домашней коллекции</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <span class="badge bg-warning text-dark align-self-start mb-2">Хранение</span>
+              <h2 class="card-title h5">Почему коллекцию LEGO нужно сортировать по форме, а не по цвету</h2>
+              <p class="card-text text-muted">
+                Секреты организации рабочего места MOC-билдера: почему в контейнере с черными деталями невозможно ничего найти.
+              </p>
+              <button
+                type="button"
+                class="btn btn-outline-primary mt-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#articleModal"
+                data-article-id="sort"
+              >
+                Читать далее
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Единый подвал -->
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3.</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Заявка</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальное окно чтения полной статьи -->
+  <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="articleModalTitle">Статья</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body" id="articleModalBody"></div>
+        <div class="modal-footer">
+          <a href="catalog.html" class="btn btn-primary">Перейти в каталог деталей</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно заказа (ID orderModal) -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="orderModalLabel">Оформление заказа</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalSuccessAlert" class="alert alert-success d-none" role="alert">
+            Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+          </div>
+          <form id="modalOrderForm">
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Имя</label>
+              <input type="text" class="form-control" id="orderName" name="name" placeholder="Введите ваше имя" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderPhone" class="form-label">Телефон</label>
+              <div class="input-group">
+                <span class="input-group-text">+7</span>
+                <input type="tel" class="form-control" id="orderPhone" name="phone" placeholder="900 000-00-00" required>
+              </div>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="orderAgree" name="agree" required>
+              <label class="form-check-label" for="orderAgree">
+                Согласен на обработку персональных данных
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const ARTICLES = {
+      wash: {
+        title: "Как правильно мыть б/у детали LEGO в домашних условиях",
+        body: `
+          <p>Оригинальные кубики LEGO изготавливаются из ABS-пластика, который чувствителен к перегреву. Чтобы детали не потеряли сцепление (Clutch Power), соблюдайте три правила:</p>
+          <ul>
+            <li><strong>Температура не выше 40 °C:</strong> горячая вода и сушка на батарее деформируют геометрию стенок.</li>
+            <li><strong>Мягкий мыльный раствор:</strong> используйте гель для детской посуды без абразивных частиц и спирта.</li>
+            <li><strong>Сушка на микрофибре:</strong> разложите детали на полотенце при комнатной температуре и периодически переворачивайте.</li>
+          </ul>`
+      },
+      original: {
+        title: "Как отличить оригинальный кубик LEGO от копии за 10 секунд",
+        body: `
+          <p>При сортировке партий в «LEGO Б/У Shop» каждая деталь проверяется по трем признакам подлинности:</p>
+          <ul>
+            <li><strong>Штамп на пинах (Studs):</strong> на каждом внешнем пине базовых кубиков и пластин отштампован четкий логотип LEGO.</li>
+            <li><strong>Design ID внутри детали:</strong> на внутренней стороне вылит 4- или 5-значный номер формы (например, 3001 для кирпича 2x4).</li>
+            <li><strong>Равномерность литья:</strong> у оригинала нет заусенцев по краям и мутных разводов в пластике.</li>
+          </ul>`
+      },
+      sort: {
+        title: "Почему коллекцию LEGO нужно сортировать по форме, а не по цвету",
+        body: `
+          <p>Человеческий глаз мгновенно выделяет красный кубик среди сотни серых деталей одинаковой формы, но найти черную техник-ось на дне коробки с черными кубиками почти невозможно.</p>
+          <p>Поэтому профессионалы делят коллекцию сначала на категории форм (Bricks, Plates, Tiles, Slopes, Technic), и только при большом объеме дополнительно раскладывают частые артикулы по цветам.</p>`
+      }
+    };
+
+    const articleModal = document.getElementById("articleModal");
+    articleModal.addEventListener("show.bs.modal", event => {
+      const btn = event.relatedTarget;
+      const id = btn ? btn.getAttribute("data-article-id") : "wash";
+      const data = ARTICLES[id] || ARTICLES.wash;
+      document.getElementById("articleModalTitle").textContent = data.title;
+      document.getElementById("articleModalBody").innerHTML = data.body;
+    });
+
+    document.getElementById("modalOrderForm").addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("modalSuccessAlert").classList.remove("d-none");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

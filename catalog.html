@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <!-- Единая навигация (navbar) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Заявка</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Блог</a>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+            
+            <button
+              type="button"
+              class="btn btn-warning btn-sm fw-semibold"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              data-product="Быстрая заявка из каталога"
+            >
+              Заказать детали
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5 flex-grow-1">
+    <!-- Хлебные крошки (breadcrumb) -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Каталог</li>
+      </ol>
+    </nav>
+
+    <!-- Информационное сообщение (alert alert-info) -->
+    <div id="catalogAlert" class="alert alert-info" role="alert">
+      Выберите нужные детали из каталога ниже. Найдено позиций: <strong id="foundCount">6</strong>.
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+      <h1 class="h2 mb-0">Каталог б/у деталей LEGO</h1>
+      <a class="btn btn-outline-primary" href="order.html">Индивидуальная заявка по списку</a>
+    </div>
+
+    <!-- Сетка каталога: боковая панель (col-12 col-lg-3) и товары (col-12 col-lg-9) -->
+    <section aria-label="Фильтры и список товаров">
+      <div class="row g-4">
+        <!-- Боковая панель с фильтрами -->
+        <div class="col-12 col-lg-3">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="h5 card-title mb-3">Фильтры</h2>
+              <form id="catalogFilterForm">
+                <div class="mb-3">
+                  <label for="categorySelect" class="form-label fw-semibold">Категория</label>
+                  <select class="form-select" id="categorySelect" name="category">
+                    <option value="all" selected>Все категории</option>
+                    <option value="bricks">Базовые кубики (Bricks)</option>
+                    <option value="plates">Пластины и плитки (Plates)</option>
+                    <option value="technic">Детали Technic</option>
+                    <option value="slopes">Скосы и окна (Slopes)</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <span class="form-label fw-semibold d-block">Состояние детали</span>
+                  <div class="form-check">
+                    <input class="form-check-input cond-check" type="checkbox" value="grade-a" id="condNew" checked>
+                    <label class="form-check-label" for="condNew">
+                      Отличное (Grade A)
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input cond-check" type="checkbox" value="grade-b" id="condGood" checked>
+                    <label class="form-check-label" for="condGood">
+                      Хорошее (Grade B)
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input cond-check" type="checkbox" value="vintage" id="condVintage" checked>
+                    <label class="form-check-label" for="condVintage">
+                      Винтаж (выпуски до 2000 г.)
+                    </label>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Применить</button>
+                  <button type="button" id="resetFiltersBtn" class="btn btn-outline-secondary btn-sm">Сбросить фильтры</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Товары (col-12 col-lg-9) -->
+        <div class="col-12 col-lg-9">
+          <div class="row g-4" id="catalogGrid">
+            <!-- Карточка 1 -->
+            <div class="col-12 col-md-6 col-lg-4 col-xl-4 catalog-item" data-category="bricks" data-condition="grade-a" data-page="1">
+              <div class="card h-100 shadow-sm product-card-hover">
+                <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="3001"></div>
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title h5 mb-0">Кирпич 2x4 (3001)</h3>
+                    <span class="badge bg-warning text-dark">Хит</span>
+                  </div>
+                  <p class="card-text text-muted">Красный базовый кубик, отличная сохранность граней (Grade A).</p>
+                  <p class="fw-bold fs-5 mt-auto mb-3 text-primary">15 ₽ / шт.</p>
+                  <div class="d-flex gap-2">
+                    <a href="product.html?id=3001" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                    <button
+                      type="button"
+                      class="btn btn-primary flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#orderModal"
+                      data-product="Кирпич 2x4 (3001) — 15 ₽"
+                    >
+                      В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="col-12 col-md-6 col-lg-4 col-xl-4 catalog-item" data-category="slopes" data-condition="grade-a" data-page="1">
+              <div class="card h-100 shadow-sm product-card-hover">
+                <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="3039"></div>
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title h5 mb-0">Скос крыши 2x2 (3039)</h3>
+                    <span class="badge bg-success">Новинка</span>
+                  </div>
+                  <p class="card-text text-muted">Синий цвет, классический угол наклона 45 градусов (Grade A).</p>
+                  <p class="fw-bold fs-5 mt-auto mb-3 text-primary">12 ₽ / шт.</p>
+                  <div class="d-flex gap-2">
+                    <a href="product.html?id=3039" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                    <button
+                      type="button"
+                      class="btn btn-primary flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#orderModal"
+                      data-product="Скос крыши 2x2 (3039) — 12 ₽"
+                    >
+                      В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="col-12 col-md-6 col-lg-4 col-xl-4 catalog-item" data-category="technic" data-condition="grade-a" data-page="1">
+              <div class="card h-100 shadow-sm product-card-hover">
+                <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="32278"></div>
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title h5 mb-0">Балка Technic 1x15</h3>
+                    <span class="badge bg-info text-dark">Technic</span>
+                  </div>
+                  <p class="card-text text-muted">Артикул 32278, темно-серый цвет, несущая балка для шасси.</p>
+                  <p class="fw-bold fs-5 mt-auto mb-3 text-primary">45 ₽ / шт.</p>
+                  <div class="d-flex gap-2">
+                    <a href="product.html?id=32278" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                    <button
+                      type="button"
+                      class="btn btn-primary flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#orderModal"
+                      data-product="Балка Technic 1x15 (32278) — 45 ₽"
+                    >
+                      В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Карточка 4 -->
+            <div class="col-12 col-md-6 col-lg-4 col-xl-4 catalog-item" data-category="plates" data-condition="grade-b" data-page="2">
+              <div class="card h-100 shadow-sm product-card-hover">
+                <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="3068"></div>
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title h5 mb-0">Плитка гладкая 2x2</h3>
+                    <span class="badge bg-secondary">В наличии</span>
+                  </div>
+                  <p class="card-text text-muted">Артикул 3068b, желтый цвет, для чистовой отделки полов (Grade B).</p>
+                  <p class="fw-bold fs-5 mt-auto mb-3 text-primary">10 ₽ / шт.</p>
+                  <div class="d-flex gap-2">
+                    <a href="product.html?id=3068" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                    <button
+                      type="button"
+                      class="btn btn-primary flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#orderModal"
+                      data-product="Плитка гладкая 2x2 (3068b) — 10 ₽"
+                    >
+                      В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Карточка 5 -->
+            <div class="col-12 col-md-6 col-lg-4 col-xl-4 catalog-item" data-category="technic" data-condition="vintage" data-page="2">
+              <div class="card h-100 shadow-sm product-card-hover">
+                <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="3648"></div>
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title h5 mb-0">Шестерня Z24 (3648)</h3>
+                    <span class="badge bg-danger">Скидка</span>
+                  </div>
+                  <p class="card-text text-muted">Классическая серая шестерня Technic на 24 зуба (Винтаж 1998 г.).</p>
+                  <p class="fw-bold fs-5 mt-auto mb-3 text-primary">35 ₽ / шт.</p>
+                  <div class="d-flex gap-2">
+                    <a href="product.html?id=3648" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                    <button
+                      type="button"
+                      class="btn btn-primary flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#orderModal"
+                      data-product="Шестерня Technic Z24 (3648) — 35 ₽"
+                    >
+                      В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Карточка 6 -->
+            <div class="col-12 col-md-6 col-lg-4 col-xl-4 catalog-item" data-category="plates" data-condition="grade-a" data-page="3">
+              <div class="card h-100 shadow-sm product-card-hover">
+                <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="91405"></div>
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h3 class="card-title h5 mb-0">Пластина 16x16 (91405)</h3>
+                    <span class="badge bg-success">Новинка</span>
+                  </div>
+                  <p class="card-text text-muted">Крупная базовая пластина серого цвета без изгибов (Grade A).</p>
+                  <p class="fw-bold fs-5 mt-auto mb-3 text-primary">220 ₽ / шт.</p>
+                  <div class="d-flex gap-2">
+                    <a href="product.html?id=91405" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                    <button
+                      type="button"
+                      class="btn btn-primary flex-grow-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#orderModal"
+                      data-product="Пластина 16x16 (91405) — 220 ₽"
+                    >
+                      В корзину
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Пагинация (все кнопки работают) -->
+          <nav aria-label="Постраничная навигация каталога" class="mt-5">
+            <ul class="pagination justify-content-center mb-0" id="catalogPagination">
+              <li class="page-item" id="prevPageItem">
+                <button type="button" class="page-link" data-page-action="prev">Назад</button>
+              </li>
+              <li class="page-item active">
+                <button type="button" class="page-link" data-page-num="1">1</button>
+              </li>
+              <li class="page-item">
+                <button type="button" class="page-link" data-page-num="2">2</button>
+              </li>
+              <li class="page-item">
+                <button type="button" class="page-link" data-page-num="3">3</button>
+              </li>
+              <li class="page-item" id="nextPageItem">
+                <button type="button" class="page-link" data-page-action="next">Вперед</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Единый подвал -->
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3.</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Заявка</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальное окно заказа (ID orderModal) -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="orderModalLabel">Оформление заказа</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalSelectedProduct" class="alert alert-secondary py-2 small mb-3">
+            Выбранная позиция: <strong>Деталь из каталога</strong>
+          </div>
+          <div id="modalSuccessAlert" class="alert alert-success d-none" role="alert">
+            Товар добавлен в заявку! Менеджер свяжется с вами для подтверждения.
+          </div>
+          <form id="modalOrderForm">
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Имя</label>
+              <input type="text" class="form-control" id="orderName" name="name" placeholder="Введите ваше имя" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderPhone" class="form-label">Телефон</label>
+              <div class="input-group">
+                <span class="input-group-text">+7</span>
+                <input type="tel" class="form-control" id="orderPhone" name="phone" placeholder="900 000-00-00" required>
+              </div>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="orderAgree" name="agree" required>
+              <label class="form-check-label" for="orderAgree">
+                Согласен на обработку персональных данных
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const PARTS_SVGS = {
+      "3001": `<svg viewBox="0 0 220 130" width="170" height="105"><rect x="25" y="38" width="170" height="68" rx="6" fill="#d01012" stroke="#8f0709" stroke-width="3"/><rect x="38" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><rect x="76" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><rect x="116" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><rect x="154" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><text x="110" y="80" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="bold" font-size="15">BRICK 3001</text></svg>`,
+      "3039": `<svg viewBox="0 0 220 130" width="170" height="105"><polygon points="35,105 185,105 185,40 95,40" fill="#0d6efd" stroke="#084298" stroke-width="3"/><rect x="110" y="26" width="28" height="14" rx="3" fill="#3d8bfd" stroke="#084298" stroke-width="2"/><rect x="148" y="26" width="28" height="14" rx="3" fill="#3d8bfd" stroke="#084298" stroke-width="2"/><text x="125" y="85" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="bold" font-size="15">SLOPE 3039</text></svg>`,
+      "32278": `<svg viewBox="0 0 220 130" width="170" height="105"><rect x="15" y="48" width="190" height="34" rx="17" fill="#495057" stroke="#212529" stroke-width="3"/><g fill="#f8f9fa" stroke="#212529" stroke-width="2"><circle cx="38" cy="65" r="8"/><circle cx="66" cy="65" r="8"/><circle cx="94" cy="65" r="8"/><circle cx="122" cy="65" r="8"/><circle cx="150" cy="65" r="8"/><circle cx="178" cy="65" r="8"/></g></svg>`,
+      "3068": `<svg viewBox="0 0 220 130" width="170" height="105"><rect x="40" y="50" width="140" height="36" rx="4" fill="#ffc107" stroke="#b68900" stroke-width="3"/><text x="110" y="74" text-anchor="middle" fill="#212529" font-family="sans-serif" font-weight="bold" font-size="15">TILE 2x2 (3068b)</text></svg>`,
+      "3648": `<svg viewBox="0 0 220 130" width="170" height="105"><circle cx="110" cy="65" r="46" fill="#adb5bd" stroke="#495057" stroke-width="6" stroke-dasharray="10 5"/><circle cx="110" cy="65" r="32" fill="#dee2e6" stroke="#495057" stroke-width="3"/><circle cx="95" cy="55" r="5" fill="#495057"/><circle cx="125" cy="55" r="5" fill="#495057"/><circle cx="95" cy="75" r="5" fill="#495057"/><circle cx="125" cy="75" r="5" fill="#495057"/><path d="M103 65 H117 M110 58 V72" stroke="#212529" stroke-width="5"/></svg>`,
+      "91405": `<svg viewBox="0 0 220 130" width="170" height="105"><rect x="20" y="55" width="180" height="32" rx="4" fill="#8a929a" stroke="#565e64" stroke-width="3"/><g fill="#a3abb2" stroke="#565e64" stroke-width="1.5"><rect x="30" y="45" width="16" height="10" rx="2"/><rect x="54" y="45" width="16" height="10" rx="2"/><rect x="78" y="45" width="16" height="10" rx="2"/><rect x="102" y="45" width="16" height="10" rx="2"/><rect x="126" y="45" width="16" height="10" rx="2"/><rect x="150" y="45" width="16" height="10" rx="2"/><rect x="174" y="45" width="16" height="10" rx="2"/></g><text x="110" y="76" text-anchor="middle" fill="#fff" font-family="sans-serif" font-weight="bold" font-size="14">PLATE 91405</text></svg>`
+    };
+
+    document.querySelectorAll("[data-render-part]").forEach(el => {
+      const id = el.getAttribute("data-render-part");
+      if (PARTS_SVGS[id]) el.innerHTML = PARTS_SVGS[id];
+    });
+
+    // Фильтрация каталога
+    const filterForm = document.getElementById("catalogFilterForm");
+    const categorySelect = document.getElementById("categorySelect");
+    const condChecks = document.querySelectorAll(".cond-check");
+    const items = document.querySelectorAll(".catalog-item");
+    const foundCount = document.getElementById("foundCount");
+
+    function applyFilters() {
+      const cat = categorySelect.value;
+      const activeConds = Array.from(condChecks).filter(c => c.checked).map(c => c.value);
+      let visible = 0;
+
+      items.forEach(card => {
+        const matchCat = (cat === "all" || card.dataset.category === cat);
+        const matchCond = activeConds.includes(card.dataset.condition);
+        if (matchCat && matchCond) {
+          card.classList.remove("d-none");
+          visible++;
+        } else {
+          card.classList.add("d-none");
+        }
+      });
+      foundCount.textContent = visible;
+    }
+
+    filterForm.addEventListener("submit", e => {
+      e.preventDefault();
+      applyFilters();
+    });
+
+    document.getElementById("resetFiltersBtn").addEventListener("click", () => {
+      categorySelect.value = "all";
+      condChecks.forEach(c => { c.checked = true; });
+      applyFilters();
+    });
+
+    // Чтение GET-параметров из URL (если перешли из виджета подбора на Главной)
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("category")) {
+      categorySelect.value = params.get("category");
+      applyFilters();
+    }
+
+    // Работающая пагинация
+    let currentPage = 1;
+    const pageButtons = document.querySelectorAll("[data-page-num]");
+
+    function setPage(pageNum) {
+      currentPage = Math.max(1, Math.min(3, pageNum));
+      pageButtons.forEach(btn => {
+        const num = parseInt(btn.getAttribute("data-page-num"), 10);
+        btn.parentElement.classList.toggle("active", num === currentPage);
+      });
+      document.getElementById("catalogAlert").innerHTML =
+        `Страница каталога <strong>№${currentPage}</strong>. Выберите нужные детали или используйте фильтры слева.`;
+    }
+
+    pageButtons.forEach(btn => {
+      btn.addEventListener("click", () => setPage(parseInt(btn.getAttribute("data-page-num"), 10)));
+    });
+
+    document.querySelectorAll("[data-page-action]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.getAttribute("data-page-action");
+        setPage(action === "prev" ? currentPage - 1 : currentPage + 1);
+      });
+    });
+
+    // Счетчик корзины и модальное окно
+    const cartBadge = document.getElementById("cartBadge");
+    let cartCount = parseInt(localStorage.getItem("legoCartCount") || "0", 10);
+    if (cartBadge) cartBadge.textContent = cartCount;
+
+    const orderModal = document.getElementById("orderModal");
+    orderModal.addEventListener("show.bs.modal", event => {
+      const trigger = event.relatedTarget;
+      const productInfo = trigger ? trigger.getAttribute("data-product") : "Деталь из каталога";
+      document.getElementById("modalSelectedProduct").innerHTML = `Выбранная позиция: <strong>${productInfo}</strong>`;
+      document.getElementById("modalSuccessAlert").classList.add("d-none");
+      cartCount += 1;
+      localStorage.setItem("legoCartCount", cartCount);
+      if (cartBadge) cartBadge.textContent = cartCount;
+    });
+
+    document.getElementById("modalOrderForm").addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("modalSuccessAlert").classList.remove("d-none");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
