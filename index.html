@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Главная — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <!-- Единая навигация (navbar) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Заявка</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Блог</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Категории
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="catalog.html?category=bricks">Базовые кубики (Bricks)</a></li>
+                <li><a class="dropdown-item" href="catalog.html?category=plates">Пластины (Plates)</a></li>
+                <li><a class="dropdown-item" href="catalog.html?category=technic">Детали Technic</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="index.html#popular">Хиты продаж</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+           
+            <button
+              type="button"
+              class="btn btn-warning btn-sm fw-semibold"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              data-product="Быстрая заявка на подбор"
+            >
+              Заказать детали
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-grow-1">
+    <!-- Hero-блок через компонент Carousel (2 слайда) + интерактивный подбор -->
+    <section class="container mt-4" aria-label="Промо-слайдер">
+      <div id="heroCarousel" class="carousel slide hero-rounded overflow-hidden shadow" data-bs-ride="false">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1"></button>
+          <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Слайд 2"></button>
+        </div>
+
+        <div class="carousel-inner">
+          <!-- Слайд 1: Подбор деталей + интерактивная карточка витрины -->
+          <div class="carousel-item active hero-slide-primary text-white p-4 p-lg-5">
+            <div class="row align-items-center g-4">
+              <div class="col-12 col-lg-7">
+                <span class="badge bg-warning text-dark mb-2 fw-semibold">ОРИГИНАЛЬНЫЕ ДЕТАЛИ LEGO ПОШТУЧНО</span>
+                <h1 class="display-5 fw-bold mb-3">Найдите нужную деталь LEGO для вашей сборки</h1>
+                <p class="lead opacity-90 mb-4">
+                  Более 15 400 проверенных б/у элементов от базовых кубиков System до редких шестеренок Technic. Выберите параметры или перейдите в каталог.
+                </p>
+
+                <!-- Виджет быстрого подбора (передает параметры в catalog.html) -->
+                <form action="catalog.html" method="get" class="bg-white text-dark p-3 rounded-3 shadow-sm">
+                  <div class="row g-2 align-items-end">
+                    <div class="col-12 col-sm-4">
+                      <label for="heroCategory" class="form-label small text-muted mb-1">Категория</label>
+                      <select id="heroCategory" name="category" class="form-select form-select-sm">
+                        <option value="all">Любая категория</option>
+                        <option value="bricks">Кубики (Bricks)</option>
+                        <option value="plates">Пластины (Plates)</option>
+                        <option value="technic">Детали Technic</option>
+                        <option value="slopes">Скосы и окна</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                      <label for="heroCondition" class="form-label small text-muted mb-1">Состояние</label>
+                      <select id="heroCondition" name="condition" class="form-select form-select-sm">
+                        <option value="all">Любое</option>
+                        <option value="grade-a">Отличное (Grade A)</option>
+                        <option value="grade-b">Хорошее (Grade B)</option>
+                        <option value="vintage">Винтаж</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                      <button type="submit" class="btn btn-warning w-100 fw-semibold btn-sm py-2">
+                        Подобрать
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+                <div class="mt-3">
+                  <a href="catalog.html" class="btn btn-outline-light btn-sm">Перейти в каталог</a>
+                </div>
+              </div>
+
+              <!-- Интерактивная витрина с переключением миниатюр -->
+              <div class="col-12 col-lg-5">
+                <div class="card border-0 shadow text-dark">
+                  <div class="card-body p-3">
+                    <div id="heroPreviewImg" class="placeholder-image rounded bg-light d-flex align-items-center justify-content-center mb-3">
+                      <!-- Заполняется скриптом -->
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h2 id="heroPreviewTitle" class="h6 fw-bold mb-0">Кирпич 2x4 (Brick 3001)</h2>
+                      <span id="heroPreviewPrice" class="fw-bold text-primary">15 ₽ / шт.</span>
+                    </div>
+
+                    <!-- Миниатюры переключения -->
+                    <div class="row g-2 mb-3">
+                      
+                      <div class="col-3">
+                        <button type="button" class="btn btn-light border w-100 p-1 hero-thumb" data-id="91405" aria-label="Пластина 16x16">
+                          <span class="d-block small fw-bold text-secondary">16x16</span>
+                        </button>
+                      </div>
+                      <div class="col-3">
+                        <button type="button" class="btn btn-light border w-100 p-1 hero-thumb" data-id="3648" aria-label="Шестерня Z24">
+                          <span class="d-block small fw-bold text-dark">Z24</span>
+                        </button>
+                      </div>
+                      
+                    </div>
+
+                    <a id="heroPreviewLink" href="product.html?id=3001" class="btn btn-outline-primary btn-sm w-100 fw-semibold">
+                      Смотреть деталь
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Слайд 2: Второй слайд с другим фоном -->
+          <div class="carousel-item hero-slide-secondary text-white p-4 p-lg-5">
+            <div class="row align-items-center g-4 py-lg-4">
+              <div class="col-12 col-lg-8">
+                <span class="badge bg-info text-dark mb-2 fw-semibold">КОНТРОЛЬ КАЧЕСТВА</span>
+                <h2 class="display-5 fw-bold mb-3">Ультразвуковая мойка и ручная калибровка</h2>
+                <p class="lead mb-4">
+                  Мы отсеиваем аналоги и поврежденный пластик. В продажу поступают только оригинальные детали с четким штампом LEGO и заводской силой сцепления.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="catalog.html" class="btn btn-warning btn-lg fw-semibold">Перейти в каталог</a>
+                  <a href="blog.html" class="btn btn-outline-light btn-lg">Читать статьи об уходе</a>
+                </div>
+              </div>
+              <div class="col-12 col-lg-4 text-center">
+                <div class="p-4 rounded-3 bg-dark bg-opacity-50 border border-secondary">
+                  <p class="display-6 fw-bold text-warning mb-1">100%</p>
+                  <p class="mb-0 text-white-50">Оригинальный пластик ABS с маркировкой Design ID</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Предыдущий</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Следующий</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Блок статистики в стиле AutoRent -->
+    <section class="container my-4" aria-label="Статистика магазина">
+      <div class="row g-3 text-center">
+        <div class="col-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 py-3">
+            <div class="card-body py-2">
+              <p class="h3 fw-bold text-primary mb-1">15 400+</p>
+              <p class="text-muted small mb-0">деталей в наличии на складе</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 py-3">
+            <div class="card-body py-2">
+              <p class="h3 fw-bold text-primary mb-1">4</p>
+              <p class="text-muted small mb-0">основные категории деталей</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 py-3">
+            <div class="card-body py-2">
+              <p class="h3 fw-bold text-primary mb-1">от 10 ₽</p>
+              <p class="text-muted small mb-0">стоимость базового элемента</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 py-3">
+            <div class="card-body py-2">
+              <p class="h3 fw-bold text-primary mb-1">до -20%</p>
+              <p class="text-muted small mb-0">скидка при заказе от 100 шт.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Преимущества: Заголовок "Почему мы?" и сетка из 3 карточек (col-12 col-md-4) -->
+    <section class="container my-5">
+      <h2 class="text-center mb-4">Почему мы?</h2>
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="card-body p-4">
+              <span class="badge bg-primary-subtle text-primary mb-2">Подлинность</span>
+              <h3 class="card-title h5 fw-bold">Строгая проверка оригинала</h3>
+              <p class="card-text text-muted mb-0">
+                Каждый пин и внутренняя грань проверяются на наличие фирменного штампа LEGO и серийного номера пресс-формы.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="card-body p-4">
+              <span class="badge bg-success-subtle text-success mb-2">Гигиена</span>
+              <h3 class="card-title h5 fw-bold">Деликатная мойка и сушка</h3>
+              <p class="card-text text-muted mb-0">
+                Все б/у кубики проходят очистку в теплой воде при 35 °C без агрессивной химии, сохраняя заводской глянец пластика.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="card-body p-4">
+              <span class="badge bg-warning-subtle text-dark mb-2">Удобство</span>
+              <h3 class="card-title h5 fw-bold">Поштучный заказ без лимитов</h3>
+              <p class="card-text text-muted mb-0">
+                Покупайте от одной потерянной детальки до сотен однотипных кирпичей для строительства масштабных MOC-самоделок.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Хиты продаж: Заголовок, кнопка "Все товары" и сетка из 3 карточек (col-12 col-md-6 col-lg-4) -->
+    <section class="container my-5" id="popular">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Хиты продаж</h2>
+        <a href="catalog.html" class="btn btn-outline-primary">Все товары</a>
+      </div>
+      <div class="row g-4">
+        <!-- Товар 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="3001"></div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h3 class="card-title h5 mb-0">Кирпич 2x4 (Brick 3001)</h3>
+                <span class="badge bg-warning text-dark">Хит</span>
+              </div>
+              <p class="card-text text-muted">
+                Классический красный строительный кубик 2 на 4 пина в отличном состоянии (Grade A).
+              </p>
+              <p class="fw-bold fs-5 mt-auto mb-3 text-primary">15 ₽ / шт.</p>
+              <div class="d-flex gap-2">
+                <a href="product.html?id=3001" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                <button
+                  type="button"
+                  class="btn btn-primary flex-grow-1"
+                  data-bs-toggle="modal"
+                  data-bs-target="#orderModal"
+                  data-product="Кирпич 2x4 (Brick 3001) — 15 ₽"
+                >
+                  Заказать
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Товар 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="91405"></div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h3 class="card-title h5 mb-0">Пластина 16x16 (Plate 91405)</h3>
+                <span class="badge bg-success">Новинка</span>
+              </div>
+              <p class="card-text text-muted">
+                Базовая двусторонняя пластина светло-серого цвета для создания крепких ландшафтов и этажей зданий.
+              </p>
+              <p class="fw-bold fs-5 mt-auto mb-3 text-primary">220 ₽ / шт.</p>
+              <div class="d-flex gap-2">
+                <a href="product.html?id=91405" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                <button
+                  type="button"
+                  class="btn btn-primary flex-grow-1"
+                  data-bs-toggle="modal"
+                  data-bs-target="#orderModal"
+                  data-product="Пластина 16x16 (Plate 91405) — 220 ₽"
+                >
+                  Заказать
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Товар 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-light border-bottom d-flex align-items-center justify-content-center p-3" data-render-part="3648"></div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h3 class="card-title h5 mb-0">Шестерня Technic Z24 (3648)</h3>
+                <span class="badge bg-danger">Скидка</span>
+              </div>
+              <p class="card-text text-muted">
+                Ведущая шестерня на 24 зуба для редукторов, коробок передач и механических самоделок серии Technic.
+              </p>
+              <p class="fw-bold fs-5 mt-auto mb-3 text-primary">35 ₽ / шт.</p>
+              <div class="d-flex gap-2">
+                <a href="product.html?id=3648" class="btn btn-outline-primary flex-grow-1">Подробнее</a>
+                <button
+                  type="button"
+                  class="btn btn-primary flex-grow-1"
+                  data-bs-toggle="modal"
+                  data-bs-target="#orderModal"
+                  data-product="Шестерня Technic Z24 (3648) — 35 ₽"
+                >
+                  Заказать
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Единый подвал (footer) -->
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3.</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Заявка</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальное окно заказа (ID orderModal) -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="orderModalLabel">Оформление заказа</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalSelectedProduct" class="alert alert-secondary py-2 small mb-3">
+            Выбранная позиция: <strong>Быстрый заказ деталей</strong>
+          </div>
+          <div id="modalSuccessAlert" class="alert alert-success d-none" role="alert">
+            Заявка успешно принята! Менеджер свяжется с вами в течение 15 минут.
+          </div>
+          <form id="modalOrderForm">
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Имя</label>
+              <input type="text" class="form-control" id="orderName" name="name" placeholder="Введите ваше имя" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderPhone" class="form-label">Телефон</label>
+              <div class="input-group">
+                <span class="input-group-text">+7</span>
+                <input type="tel" class="form-control" id="orderPhone" name="phone" placeholder="900 000-00-00" required>
+              </div>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="orderAgree" name="agree" required>
+              <label class="form-check-label" for="orderAgree">
+                Согласен на обработку персональных данных
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // База деталей и векторных SVG-иллюстраций (гарантирует 0 битых картинок)
+    const PARTS_DATA = {
+      "3001": {
+        title: "Кирпич 2x4 (Brick 3001)",
+        price: "15 ₽ / шт.",
+        svg: `<svg viewBox="0 0 220 130" width="180" height="110"><rect x="25" y="38" width="170" height="68" rx="6" fill="#d01012" stroke="#8f0709" stroke-width="3"/><rect x="38" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><rect x="76" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><rect x="116" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><rect x="154" y="24" width="26" height="14" rx="3" fill="#e6191b" stroke="#8f0709" stroke-width="2"/><text x="110" y="80" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="16">LEGO 3001 (2x4)</text></svg>`
+      },
+      "91405": {
+        title: "Пластина 16x16 (Plate 91405)",
+        price: "220 ₽ / шт.",
+        svg: `<svg viewBox="0 0 220 130" width="180" height="110"><rect x="20" y="55" width="180" height="32" rx="4" fill="#8a929a" stroke="#565e64" stroke-width="3"/><g fill="#a3abb2" stroke="#565e64" stroke-width="1.5"><rect x="30" y="45" width="16" height="10" rx="2"/><rect x="54" y="45" width="16" height="10" rx="2"/><rect x="78" y="45" width="16" height="10" rx="2"/><rect x="102" y="45" width="16" height="10" rx="2"/><rect x="126" y="45" width="16" height="10" rx="2"/><rect x="150" y="45" width="16" height="10" rx="2"/><rect x="174" y="45" width="16" height="10" rx="2"/></g><text x="110" y="76" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="14">PLATE 16x16 (91405)</text></svg>`
+      },
+      "3648": {
+        title: "Шестерня Technic Z24 (3648)",
+        price: "35 ₽ / шт.",
+        svg: `<svg viewBox="0 0 220 130" width="180" height="110"><circle cx="110" cy="65" r="46" fill="#adb5bd" stroke="#495057" stroke-width="6" stroke-dasharray="10 5"/><circle cx="110" cy="65" r="32" fill="#dee2e6" stroke="#495057" stroke-width="3"/><circle cx="95" cy="55" r="5" fill="#495057"/><circle cx="125" cy="55" r="5" fill="#495057"/><circle cx="95" cy="75" r="5" fill="#495057"/><circle cx="125" cy="75" r="5" fill="#495057"/><path d="M103 65 H117 M110 58 V72" stroke="#212529" stroke-width="5"/></svg>`
+      },
+      "32278": {
+        title: "Балка Technic 1x15 (32278)",
+        price: "45 ₽ / шт.",
+        svg: `<svg viewBox="0 0 220 130" width="180" height="110"><rect x="15" y="48" width="190" height="34" rx="17" fill="#495057" stroke="#212529" stroke-width="3"/><g fill="#f8f9fa" stroke="#212529" stroke-width="2"><circle cx="38" cy="65" r="8"/><circle cx="66" cy="65" r="8"/><circle cx="94" cy="65" r="8"/><circle cx="122" cy="65" r="8"/><circle cx="150" cy="65" r="8"/><circle cx="178" cy="65" r="8"/></g></svg>`
+      }
+    };
+
+    // Отрисовка SVG в карточках
+    document.querySelectorAll("[data-render-part]").forEach(el => {
+      const id = el.getAttribute("data-render-part");
+      if (PARTS_DATA[id]) el.innerHTML = PARTS_DATA[id].svg;
+    });
+
+    // Переключение миниатюр в Hero-витрине (как в AutoRent)
+    const previewImg = document.getElementById("heroPreviewImg");
+    const previewTitle = document.getElementById("heroPreviewTitle");
+    const previewPrice = document.getElementById("heroPreviewPrice");
+    const previewLink = document.getElementById("heroPreviewLink");
+
+    function updateHeroPreview(id) {
+      const item = PARTS_DATA[id];
+      if (!item || !previewImg) return;
+      previewImg.innerHTML = item.svg;
+      previewTitle.textContent = item.title;
+      previewPrice.textContent = item.price;
+      previewLink.href = `product.html?id=${id}`;
+    }
+    updateHeroPreview("3001");
+
+    document.querySelectorAll(".hero-thumb").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".hero-thumb").forEach(b => b.classList.remove("active", "border-primary"));
+        btn.classList.add("active", "border-primary");
+        updateHeroPreview(btn.getAttribute("data-id"));
+      });
+    });
+
+    // Счетчик корзины и модальное окно заказа
+    const cartBadge = document.getElementById("cartBadge");
+    let cartCount = parseInt(localStorage.getItem("legoCartCount") || "0", 10);
+    if (cartBadge) cartBadge.textContent = cartCount;
+
+    const orderModal = document.getElementById("orderModal");
+    if (orderModal) {
+      orderModal.addEventListener("show.bs.modal", event => {
+        const trigger = event.relatedTarget;
+        const productInfo = trigger ? trigger.getAttribute("data-product") : null;
+        const labelBox = document.getElementById("modalSelectedProduct");
+        const successAlert = document.getElementById("modalSuccessAlert");
+        if (successAlert) successAlert.classList.add("d-none");
+
+        if (productInfo && labelBox) {
+          labelBox.innerHTML = `Выбранная позиция: <strong>${productInfo}</strong>`;
+          if (!productInfo.includes("Корзина") && !productInfo.includes("Быстрая")) {
+            cartCount += 1;
+            localStorage.setItem("legoCartCount", cartCount);
+            if (cartBadge) cartBadge.textContent = cartCount;
+          }
+        }
+      });
+    }
+
+    const modalForm = document.getElementById("modalOrderForm");
+    if (modalForm) {
+      modalForm.addEventListener("submit", e => {
+        e.preventDefault();
+        document.getElementById("modalSuccessAlert").classList.remove("d-none");
+        modalForm.reset();
+      });
+    }
+  </script>
+</body>
+</html>
