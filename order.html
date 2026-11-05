@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Форма заявки — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="order.html">Заявка</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Блог</a>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+            <a href="catalog.html" class="btn btn-outline-light btn-sm">В каталог</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5 flex-grow-1">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Заявка</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white py-3">
+            <h1 class="h4 mb-0">Форма заявки на подбор и покупку деталей</h1>
+          </div>
+          <div class="card-body p-4">
+            <div class="alert alert-info" role="alert">
+              Заполните форму для оформления заказа или индивидуального подбора редких деталей по артикулам. Поля со звёздочкой (*) являются обязательными.
+            </div>
+
+            <div id="orderPageSuccess" class="alert alert-success d-none" role="alert">
+              <strong>Заявка №<span id="orderNum">1042</span> успешно отправлена!</strong> Мы проверим наличие деталей на складе и свяжемся с вами.
+            </div>
+
+            <form id="fullOrderForm">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label for="order-name" class="form-label">Имя *</label>
+                  <input id="order-name" name="name" type="text" class="form-control" placeholder="Илья" required>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="order-email" class="form-label">E-mail *</label>
+                  <input id="order-email" name="email" type="email" class="form-control" placeholder="student@mirea.ru" required>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="order-phone" class="form-label">Телефон *</label>
+                  <div class="input-group">
+                    <span class="input-group-text">+7</span>
+                    <input id="order-phone" name="phone" type="tel" class="form-control" placeholder="900 000-00-00" required>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="order-product" class="form-label">Товар или категория</label>
+                  <select id="order-product" name="product" class="form-select">
+                    <option value="brick-3001" selected>Кирпич 2x4 (Brick 3001) — 15 ₽</option>
+                    <option value="plate-91405">Пластина 16x16 (Plate 91405) — 220 ₽</option>
+                    <option value="gear-3648">Шестерня Technic Z24 (3648) — 35 ₽</option>
+                    <option value="beam-32278">Балка Technic 1x15 (32278) — 45 ₽</option>
+                    <option value="custom">Индивидуальный подбор по списку BrickLink</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label for="order-comment" class="form-label">Комментарий к заказу (укажите количество и цвета)</label>
+                  <textarea id="order-comment" name="comment" class="form-control" rows="4" placeholder="Например: Кирпич 3001 красный — 30 шт., Шестерня 3648 — 4 шт."></textarea>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input id="order-agree" name="agree" class="form-check-input" type="checkbox" required>
+                    <label class="form-check-label" for="order-agree">
+                      Я согласен на обработку персональных данных *
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12 d-flex gap-2">
+                  <button class="btn btn-primary" type="submit">Отправить заявку</button>
+                  <button class="btn btn-outline-secondary" type="reset" id="resetOrderBtn">Очистить</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3.</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Заявка</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const fullOrderForm = document.getElementById("fullOrderForm");
+    const successBox = document.getElementById("orderPageSuccess");
+
+    fullOrderForm.addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("orderNum").textContent = Math.floor(1000 + Math.random() * 9000);
+      successBox.classList.remove("d-none");
+      localStorage.setItem("legoCartCount", "0");
+      fullOrderForm.reset();
+    });
+
+    document.getElementById("resetOrderBtn").addEventListener("click", () => {
+      successBox.classList.add("d-none");
+    });
+  </script>
+</body>
+</html>
