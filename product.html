@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карточка детали — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Сборка заказа</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Блог и база знаний</a>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+            <a href="order.html" class="btn btn-outline-light btn-sm">
+              Корзина <span id="cartBadge" class="badge rounded-pill bg-warning text-dark ms-1">2</span>
+            </a>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm fw-semibold"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              data-product="Быстрый заказ со страницы товара"
+            >
+              Быстрый заказ
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5 flex-grow-1">
+    <!-- Хлебные крошки: Главная / Каталог / Кирпич 2x4 -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+        <li class="breadcrumb-item"><a href="catalog.html">Каталог</a></li>
+        <li class="breadcrumb-item active" id="breadcrumbTitle" aria-current="page">Кирпич 2x4</li>
+      </ol>
+    </nav>
+
+    <!-- Основной блок: Сетка row g-4 -->
+    <section aria-label="Описание детали">
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <div class="card shadow-sm">
+            <div id="productMainImage" class="placeholder-image-lg bg-white rounded-top d-flex align-items-center justify-content-center p-4"></div>
+            <div class="card-footer bg-light d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
+              <span class="small fw-semibold text-muted">Цвет пластика (палитра BrickLink):</span>
+              <div class="btn-group btn-group-sm" role="group" aria-label="Выбор цвета">
+                <button type="button" class="btn btn-outline-danger active color-switch-btn" data-color="#d01012" data-color-name="Красный (Bright Red)">Красный</button>
+                <button type="button" class="btn btn-outline-primary color-switch-btn" data-color="#0d6efd" data-color-name="Синий (Bright Blue)">Синий</button>
+                <button type="button" class="btn btn-outline-warning text-dark color-switch-btn" data-color="#ffc107" data-color-name="Жёлтый (Bright Yellow)">Жёлтый</button>
+                <button type="button" class="btn btn-outline-secondary color-switch-btn" data-color="#6c757d" data-color-name="Серый (Light Bluish Gray)">Серый</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <span class="badge bg-success mb-2" id="productBadge">В наличии (48 шт.)</span>
+          <h2 class="mb-3" id="productTitle">Кирпич 2x4 (Brick 3001)</h2>
+          <p class="lead text-muted" id="productDesc">
+            Оригинальный строительный элемент системы LEGO System из ударопрочного ABS-пластика. Прошёл ультразвуковую чистку, не имеет сколов, трещин и следов выгорания.
+          </p>
+          <p class="fs-3 fw-bold text-primary mb-3" id="productPrice">15 ₽ / шт.</p>
+
+          <div class="alert alert-warning" role="alert">
+            <strong>Информация о б/у состоянии:</strong> Деталь относится к категории Grade A (отличная сохранность). Проверена заводская сила сцепления пинов (Clutch Power).
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <button
+              type="button"
+              id="orderNowBtn"
+              class="btn btn-primary btn-lg"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              data-product="Кирпич 2x4 (Brick 3001) — 15 ₽"
+            >
+              Заказать сейчас
+            </button>
+            <a href="order.html" class="btn btn-outline-primary btn-lg">Рассчитать партию и вес</a>
+            <a href="catalog.html" class="btn btn-outline-secondary btn-lg">Назад в каталог</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Таблица характеристик: table table-striped table-bordered в обертке table-responsive -->
+    <section class="mt-5" aria-label="Характеристики детали">
+      <h3 class="h4 mb-3">Технические характеристики детали</h3>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle bg-white">
+          <tbody>
+            <tr>
+              <th scope="row" class="w-25">Артикул</th>
+              <td id="specArticle">3001 (LEGO Design ID)</td>
+            </tr>
+            <tr>
+              <th scope="row">Цвет</th>
+              <td id="specColor">Красный (Bright Red)</td>
+            </tr>
+            <tr>
+              <th scope="row">Размер</th>
+              <td id="specSize">2 x 4 пина (16 x 32 x 9.6 мм)</td>
+            </tr>
+            <tr>
+              <th scope="row">Вес одного элемента</th>
+              <td id="specWeight">2.32 г (ABS-термопластик)</td>
+            </tr>
+            <tr>
+              <th scope="row">Состояние</th>
+              <td id="specCondition">Б/У — Отличное (Grade A, проверено)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Аккордеон (ID faqAccordion) -->
+    <section class="mt-5" aria-label="Частые вопросы">
+      <h3 class="h4 mb-3">Частые вопросы по заказу деталей</h3>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h4 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#faqDelivery"
+              aria-expanded="true"
+              aria-controls="faqDelivery"
+            >
+              Как происходит доставка?
+            </button>
+          </h4>
+          <div
+            id="faqDelivery"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#faqAccordion"
+          >
+            <div class="accordion-body">
+              Детали фасуются по артикулам в плотные зип-пакеты с маркировкой Design ID и упаковываются в жёсткую картонную коробку с защитным наполнителем. Отправка осуществляется через СДЭК, Почту России и курьером по Москве в течение 24 часов.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h4 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#faqReturn"
+              aria-expanded="false"
+              aria-controls="faqReturn"
+            >
+              Можно ли вернуть деталь?
+            </button>
+          </h4>
+          <div
+            id="faqReturn"
+            class="accordion-collapse collapse"
+            data-bs-parent="#faqAccordion"
+          >
+            <div class="accordion-body">
+              Да, в течение 14 дней с момента получения заказа вы можете оформить возврат или бесплатную замену любой позиции, если деталь не подошла к вашей модели или обнаружился скрытый дефект.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3 (КР №2).</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Сборка заказа</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог и база знаний</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальное окно заказа (ID orderModal) -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="orderModalLabel">Быстрый заказ детали</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalSelectedProduct" class="alert alert-secondary py-2 small mb-3" role="alert">
+            Выбранная позиция: <strong>Кирпич 2x4 (Brick 3001)</strong>
+          </div>
+          <div id="modalSuccessAlert" class="alert alert-success d-none" role="alert">
+            Заказ успешно оформлен! Мы свяжемся с вами по указанному телефону.
+          </div>
+          <form id="modalOrderForm">
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Имя *</label>
+              <input type="text" class="form-control" id="orderName" name="name" placeholder="Введите ваше имя" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderPhone" class="form-label">Телефон *</label>
+              <div class="input-group">
+                <span class="input-group-text">+7</span>
+                <input type="tel" class="form-control" id="orderPhone" name="phone" placeholder="900 000-00-00" required>
+              </div>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="orderAgree" name="agree" required>
+              <label class="form-check-label" for="orderAgree">
+                Согласен на обработку персональных данных *
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const PRODUCT_DB = {
+      "3001": { name: "Кирпич 2x4", fullTitle: "Кирпич 2x4 (Brick 3001)", price: "15 ₽ / шт.", article: "3001 (Design ID)", size: "2 x 4 пина (16 x 32 x 9.6 мм)", weight: "2.32 г (ABS-термопластик)", color: "Красный (Bright Red)", hex: "#d01012" },
+      "3039": { name: "Скос крыши 2x2", fullTitle: "Скос крыши 45° 2x2 (Slope 3039)", price: "12 ₽ / шт.", article: "3039 (Design ID)", size: "2 x 2 пина (16 x 16 x 11.4 мм)", weight: "1.45 г (ABS-термопластик)", color: "Синий (Bright Blue)", hex: "#0d6efd" },
+      "32278": { name: "Балка Technic 1x15", fullTitle: "Балка Technic 1x15 толстая (32278)", price: "45 ₽ / шт.", article: "32278 (Technic Liftarm)", size: "1 x 15 отверстий (120 мм)", weight: "4.80 г (ABS-термопластик)", color: "Синий (Bright Blue)", hex: "#0d6efd" },
+      "3068": { name: "Плитка гладкая 2x2", fullTitle: "Плитка гладкая 2x2 без пинов (Tile 3068b)", price: "10 ₽ / шт.", article: "3068b (Tile System)", size: "2 x 2 (16 x 16 x 3.2 мм)", weight: "0.62 г (ABS-термопластик)", color: "Жёлтый (Bright Yellow)", hex: "#ffc107" },
+      "3648": { name: "Шестерня Z24", fullTitle: "Шестерня Technic 24 зуба (Gear 3648)", price: "35 ₽ / шт.", article: "3648 (Technic Gear)", size: "Диаметр 25.4 мм (24 зуба)", weight: "1.90 г (Полиамид / ABS)", color: "Серый (Light Bluish Gray)", hex: "#6c757d" },
+      "91405": { name: "Пластина 16x16", fullTitle: "Базовая пластина 16x16 (Plate 91405)", price: "220 ₽ / шт.", article: "91405 (Large Plate)", size: "16 x 16 пинов (128 x 128 мм)", weight: "29.50 г (ABS-термопластик)", color: "Серый (Light Bluish Gray)", hex: "#6c757d" }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const currentId = params.get("id") || "3001";
+    const prod = PRODUCT_DB[currentId] || PRODUCT_DB["3001"];
+
+    document.getElementById("breadcrumbTitle").textContent = prod.name;
+    document.getElementById("productTitle").textContent = prod.fullTitle;
+    document.getElementById("productPrice").textContent = prod.price;
+    document.getElementById("specArticle").textContent = prod.article;
+    document.getElementById("specColor").textContent = prod.color;
+    document.getElementById("specSize").textContent = prod.size;
+    document.getElementById("specWeight").textContent = prod.weight;
+    document.getElementById("orderNowBtn").setAttribute("data-product", `${prod.fullTitle} — ${prod.price}`);
+
+    function renderLargeBrick(colorHex, labelText) {
+      document.getElementById("productMainImage").innerHTML = `
+        <svg viewBox="0 0 380 230" width="100%" height="260">
+          <rect x="10" y="10" width="360" height="210" rx="14" fill="#f8f9fa"/>
+          <ellipse cx="190" cy="195" rx="135" ry="12" fill="rgba(0,0,0,0.12)"/>
+          <rect x="50" y="70" width="280" height="112" rx="10" fill="${colorHex}" stroke="#212529" stroke-width="3.5"/>
+          <rect x="72" y="46" width="44" height="24" rx="4" fill="${colorHex}" stroke="#212529" stroke-width="3"/>
+          <rect x="134" y="46" width="44" height="24" rx="4" fill="${colorHex}" stroke="#212529" stroke-width="3"/>
+          <rect x="200" y="46" width="44" height="24" rx="4" fill="${colorHex}" stroke="#212529" stroke-width="3"/>
+          <rect x="262" y="46" width="44" height="24" rx="4" fill="${colorHex}" stroke="#212529" stroke-width="3"/>
+          <text x="190" y="134" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="22">${labelText}</text>
+        </svg>`;
+    }
+
+    renderLargeBrick(prod.hex, prod.name.toUpperCase());
+
+    document.querySelectorAll(".color-switch-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".color-switch-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const hex = btn.getAttribute("data-color");
+        const colorName = btn.getAttribute("data-color-name");
+        renderLargeBrick(hex, prod.name.toUpperCase());
+        document.getElementById("specColor").textContent = colorName;
+        document.getElementById("orderNowBtn").setAttribute("data-product", `${prod.fullTitle} (${colorName}) — ${prod.price}`);
+      });
+    });
+
+    const cartBadge = document.getElementById("cartBadge");
+    let cartCount = parseInt(localStorage.getItem("legoCartCount") || "2", 10);
+    if (cartBadge) cartBadge.textContent = cartCount;
+
+    document.getElementById("orderModal").addEventListener("show.bs.modal", event => {
+      const trigger = event.relatedTarget;
+      const productInfo = trigger ? trigger.getAttribute("data-product") : prod.fullTitle;
+      document.getElementById("modalSelectedProduct").innerHTML = `Выбранная позиция: <strong>${productInfo}</strong>`;
+      document.getElementById("modalSuccessAlert").classList.add("d-none");
+      cartCount += 1;
+      localStorage.setItem("legoCartCount", cartCount);
+      if (cartBadge) cartBadge.textContent = cartCount;
+    });
+
+    document.getElementById("modalOrderForm").addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("modalSuccessAlert").classList.remove("d-none");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

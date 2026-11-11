@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сборка заказа и калькулятор партии — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="order.html">Сборка заказа</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="blog.html">Блог и база знаний</a>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+            <a href="catalog.html" class="btn btn-outline-light btn-sm">Добавить ещё детали</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5 flex-grow-1">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Сборка заказа и калькулятор</li>
+      </ol>
+    </nav>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+      <div>
+        <h1 class="h2 mb-1">Центр сборки заказа и расчёта партии</h1>
+        <p class="text-muted mb-0">Рассчитайте точный вес посылки, оптовую скидку и оформите индивидуальный подбор по артикулам BrickLink</p>
+      </div>
+      <span class="badge bg-primary fs-6 py-2 px-3">Склад: Москва (отправка за 24 ч)</span>
+    </div>
+
+    <!-- Дополнительный компонент Bootstrap: Вкладки (nav-tabs) из раздела 14.3 ПЗ №11 -->
+    <ul class="nav nav-tabs mb-4" id="orderCenterTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-semibold" id="calc-tab" data-bs-toggle="tab" data-bs-target="#calcPane" type="button" role="tab" aria-controls="calcPane" aria-selected="true">
+          1. Конфигуратор партии и заявка
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-semibold" id="grades-tab" data-bs-toggle="tab" data-bs-target="#gradesPane" type="button" role="tab" aria-controls="gradesPane" aria-selected="false">
+          2. Стандарты качества (Грейды) и доставка
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-semibold" id="tracker-tab" data-bs-toggle="tab" data-bs-target="#trackerPane" type="button" role="tab" aria-controls="trackerPane" aria-selected="false">
+          3. Отследить статус сборки
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="orderCenterTabsContent">
+      <!-- ВКЛАДКА 1: Калькулятор партии + Форма оформления -->
+      <div class="tab-pane fade show active" id="calcPane" role="tabpanel" aria-labelledby="calc-tab">
+        <!-- Интерактивная таблица сборки партии -->
+        <section class="card shadow-sm mb-4" aria-label="Калькулятор количества и веса деталей">
+          <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <h2 class="h5 mb-0">Спецификация выбранных деталей (расчёт веса и скидки)</h2>
+            <button type="button" id="addSamplePartBtn" class="btn btn-outline-primary btn-sm">
+              + Добавить тестовую позицию (Плитка 3068b)
+            </button>
+          </div>
+          <div class="card-body">
+            <!-- Прогресс-бар до скидки 15% -->
+            <div class="mb-3">
+              <div class="d-flex justify-content-between small mb-1">
+                <span id="discountHint">При заказе от 50 деталей автоматически активируется оптовая скидка <strong>15%</strong></span>
+                <span class="fw-bold" id="totalPiecesBadge">25 / 50 шт.</span>
+              </div>
+              <div class="progress" role="progressbar" aria-label="Прогресс до оптовой скидки" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+                <div id="discountProgress" class="progress-bar bg-success" style="width: 50%"></div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Деталь (Design ID)</th>
+                    <th scope="col">Грейд</th>
+                    <th scope="col">Вес / шт.</th>
+                    <th scope="col">Цена / шт.</th>
+                    <th scope="col" style="width: 160px;">Количество</th>
+                    <th scope="col">Сумма</th>
+                  </tr>
+                </thead>
+                <tbody id="cartCalcBody">
+                  <tr data-price="15" data-weight="2.32">
+                    <td class="fw-semibold">Кирпич 2x4 Красный (Brick 3001)</td>
+                    <td><span class="badge bg-success">Grade A</span></td>
+                    <td>2.32 г</td>
+                    <td>15 ₽</td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="-5">-5</button>
+                        <input type="number" class="form-control text-center qty-input" value="15" min="1" max="500" aria-label="Количество кирпичей 3001">
+                        <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="5">+5</button>
+                      </div>
+                    </td>
+                    <td class="fw-bold row-sum">225 ₽</td>
+                  </tr>
+                  <tr data-price="35" data-weight="1.90">
+                    <td class="fw-semibold">Шестерня Technic Z24 (Gear 3648)</td>
+                    <td><span class="badge bg-warning text-dark">Винтаж</span></td>
+                    <td>1.90 г</td>
+                    <td>35 ₽</td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="-5">-5</button>
+                        <input type="number" class="form-control text-center qty-input" value="8" min="1" max="500" aria-label="Количество шестерен 3648">
+                        <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="5">+5</button>
+                      </div>
+                    </td>
+                    <td class="fw-bold row-sum">280 ₽</td>
+                  </tr>
+                  <tr data-price="220" data-weight="29.50">
+                    <td class="fw-semibold">Базовая пластина 16x16 (Plate 91405)</td>
+                    <td><span class="badge bg-success">Grade A</span></td>
+                    <td>29.50 г</td>
+                    <td>220 ₽</td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="-1">-1</button>
+                        <input type="number" class="form-control text-center qty-input" value="2" min="1" max="100" aria-label="Количество пластин 91405">
+                        <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="1">+1</button>
+                      </div>
+                    </td>
+                    <td class="fw-bold row-sum">440 ₽</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Основная сетка: Форма заявки (col-lg-8) + Сводка заказа (col-lg-4) -->
+        <div class="row g-4">
+          <div class="col-12 col-lg-8">
+            <div class="card shadow-sm h-100">
+              <div class="card-header bg-primary text-white py-3">
+                <h2 class="h5 mb-0">Анкета получателя и параметры комплектации</h2>
+              </div>
+              <div class="card-body p-4">
+                <div class="alert alert-info" role="alert">
+                  Заполните контактные данные для резервирования деталей на складе. Поля со звёздочкой (*) обязательны для заполнения.
+                </div>
+
+                <div id="orderPageSuccess" class="alert alert-success d-none" role="alert">
+                  <strong>Заказ №<span id="orderNum">1048</span> успешно зарегистрирован!</strong> Вы можете проверить его статус во вкладке «Отследить статус сборки».
+                </div>
+
+                <form id="fullOrderForm">
+                  <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                      <label for="order-name" class="form-label">Имя получателя *</label>
+                      <input id="order-name" name="name" type="text" class="form-control" placeholder="Илья Левин" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="order-email" class="form-label">E-mail для чека и трек-номера *</label>
+                      <input id="order-email" name="email" type="email" class="form-control" placeholder="student@mirea.ru" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="order-phone" class="form-label">Контактный телефон *</label>
+                      <div class="input-group">
+                        <span class="input-group-text">+7</span>
+                        <input id="order-phone" name="phone" type="tel" class="form-control" placeholder="900 000-00-00" required>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="order-product" class="form-label">Основная категория или способ сборки</label>
+                      <select id="order-product" name="product" class="form-select">
+                        <option value="calc-spec" selected>По спецификации из калькулятора выше</option>
+                        <option value="brick-3001">Кирпич 2x4 (Brick 3001) — партия</option>
+                        <option value="plate-91405">Пластины 16x16 (Plate 91405)</option>
+                        <option value="technic-pack">Набор шестерёнок и балок Technic</option>
+                        <option value="bricklink-xml">Импорт списка Wanted List (BrickLink XML)</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="order-delivery" class="form-label">Способ доставки</label>
+                      <select id="order-delivery" name="delivery" class="form-select">
+                        <option value="250" selected>Пункт выдачи СДЭК (250 ₽)</option>
+                        <option value="0">Самовывоз со склада в Москве (0 ₽)</option>
+                        <option value="350">Курьер по Москве до двери (350 ₽)</option>
+                        <option value="220">Почта России — 1 класс (220 ₽)</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="order-pack" class="form-label">Фасовка деталей</label>
+                      <select id="order-pack" name="packaging" class="form-select">
+                        <option value="zip-sorted" selected>Отдельный зип-пакет на каждый артикул (бесплатно)</option>
+                        <option value="box-organizer">Пластиковый органайзер с ячейками (+150 ₽)</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label for="order-comment" class="form-label">Комментарий или XML-код списка BrickLink</label>
+                      <textarea id="order-comment" name="comment" class="form-control" rows="3" placeholder="Укажите дополнительные артикулы или пожелания по оттенкам (например: только новый оттенок Light Bluish Gray)..."></textarea>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-check">
+                        <input id="order-agree" name="agree" class="form-check-input" type="checkbox" required>
+                        <label class="form-check-label" for="order-agree">
+                          Я согласен на обработку персональных данных и ознакомлен с правилами оценки б/у деталей *
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-12 d-flex flex-wrap gap-2 pt-2">
+                      <button class="btn btn-primary btn-lg" type="submit">Подтвердить и отправить заказ</button>
+                      <button class="btn btn-outline-secondary btn-lg" type="reset" id="resetOrderBtn">Очистить форму</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: Сводная карточка расчёта -->
+          <aside class="col-12 col-lg-4">
+            <div class="card shadow-sm mb-3">
+              <div class="card-header bg-dark text-white py-3">
+                <h3 class="h5 mb-0">Итоговая сводка партии</h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush mb-3">
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span class="text-muted">Общее число деталей:</span>
+                    <strong id="summaryCount">25 шт.</strong>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span class="text-muted">Расчётный вес нетто:</span>
+                    <strong id="summaryWeight">109.0 г</strong>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span class="text-muted">Стоимость деталей:</span>
+                    <strong id="summarySubtotal">945 ₽</strong>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0 text-success">
+                    <span>Оптовая скидка (от 50 шт.):</span>
+                    <strong id="summaryDiscount">0 ₽</strong>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between px-0">
+                    <span class="text-muted">Доставка:</span>
+                    <strong id="summaryDelivery">250 ₽</strong>
+                  </li>
+                </ul>
+                <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                  <span class="h5 mb-0">К оплате:</span>
+                  <span class="h3 fw-bold text-primary mb-0" id="summaryTotal">1 195 ₽</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card shadow-sm border-0 bg-primary bg-opacity-10">
+              <div class="card-body">
+                <h4 class="h6 fw-bold text-primary">Гарантия комплектности</h4>
+                <p class="small text-muted mb-0">
+                  В каждую посылку мы вкладываем 2–3 запасных пина и печатную опись партии. При обнаружении скола возмещаем 100% стоимости детали.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 2: Стандарты грейдов и тарифы -->
+      <div class="tab-pane fade" id="gradesPane" role="tabpanel" aria-labelledby="grades-tab">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <h2 class="h4 mb-3">Классификация состояния б/у деталей LEGO в нашем магазине</h2>
+            <p class="text-muted">Чтобы вы точно знали, какие детали приедут в заказе, вся база отсортирована по трём строгим категориям качества:</p>
+            <div class="table-responsive mb-4">
+              <table class="table table-bordered table-striped align-middle">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">Категория (Грейд)</th>
+                    <th scope="col">Внешний вид и глянец</th>
+                    <th scope="col">Сила сцепления (Clutch Power)</th>
+                    <th scope="col">Рекомендация к применению</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge bg-success fs-6">Grade A (Отличное)</span></td>
+                    <td>Заводской глянец, отсутствие заметных царапин и потертостей</td>
+                    <td>100% (как из нового набора)</td>
+                    <td>Лицевые панели, витринные модели, коллекционные наборы</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge bg-secondary fs-6">Grade B (Хорошее)</span></td>
+                    <td>Допускаются микропотертости от хранения в общей коробке</td>
+                    <td>95–100% (без ослабления пинов)</td>
+                    <td>Внутренние каркасы, фундамент ландшафтов, игровые постройки</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge bg-warning text-dark fs-6">Vintage (До 2000 г.)</span></td>
+                    <td>Оригинальные оттенки старой палитры LEGO (Old Gray / Old Brown)</td>
+                    <td>Проверено на отсутствие микротрещин</td>
+                    <td>Реставрация ретро-наборов 1980–1999 годов выпуска</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ВКЛАДКА 3: Трекер статуса заказа -->
+      <div class="tab-pane fade" id="trackerPane" role="tabpanel" aria-labelledby="tracker-tab">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <h2 class="h4 mb-3">Проверка статуса комплектации заказа</h2>
+            <p class="text-muted">Введите номер вашей заявки (например, <code>1042</code> или номер только что созданного заказа), чтобы увидеть текущий этап обработки на складе:</p>
+            <form id="trackerForm" class="row g-2 align-items-center mb-4">
+              <div class="col-12 col-sm-6 col-md-4">
+                <label for="trackInput" class="visually-hidden">Номер заказа</label>
+                <input type="text" id="trackInput" class="form-control" value="1042" placeholder="Например: 1042" required>
+              </div>
+              <div class="col-12 col-sm-auto">
+                <button type="submit" class="btn btn-primary">Проверить статус</button>
+              </div>
+            </form>
+
+            <div id="trackerResult" class="p-3 bg-light rounded border">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold">Заказ №<span id="trackedIdLabel">1042</span> — Этап 3 из 4: Ультразвуковая чистка и сушка</span>
+                <span class="badge bg-info text-dark">Готовность 75%</span>
+              </div>
+              <div class="progress mb-3" role="progressbar" aria-label="Статус сборки заказа" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="height: 12px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" style="width: 75%"></div>
+              </div>
+              <div class="row g-2 small text-muted">
+                <div class="col-6 col-md-3 text-success fw-semibold">✓ 1. Заявка принята</div>
+                <div class="col-6 col-md-3 text-success fw-semibold">✓ 2. Детали отобраны по ID</div>
+                <div class="col-6 col-md-3 text-primary fw-bold">● 3. Ультразвуковая мойка</div>
+                <div class="col-6 col-md-3">○ 4. Передача в СДЭК</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3 (КР №2).</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Сборка заказа</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог и база знаний</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const cartBody = document.getElementById("cartCalcBody");
+    const deliverySelect = document.getElementById("order-delivery");
+
+    function recalcOrder() {
+      let totalPieces = 0;
+      let totalWeight = 0;
+      let subtotal = 0;
+
+      cartBody.querySelectorAll("tr").forEach(row => {
+        const price = parseFloat(row.dataset.price);
+        const weight = parseFloat(row.dataset.weight);
+        const input = row.querySelector(".qty-input");
+        const qty = Math.max(1, parseInt(input.value || "1", 10));
+        input.value = qty;
+
+        const sum = qty * price;
+        row.querySelector(".row-sum").textContent = `${sum} ₽`;
+
+        totalPieces += qty;
+        totalWeight += qty * weight;
+        subtotal += sum;
+      });
+
+      const pct = Math.min(100, Math.round((totalPieces / 50) * 100));
+      document.getElementById("discountProgress").style.width = `${pct}%`;
+      document.getElementById("totalPiecesBadge").textContent = `${totalPieces} / 50 шт.`;
+
+      const discount = totalPieces >= 50 ? Math.round(subtotal * 0.15) : 0;
+      const delivery = parseInt(deliverySelect.value || "0", 10);
+      const total = subtotal - discount + delivery;
+
+      document.getElementById("summaryCount").textContent = `${totalPieces} шт.`;
+      document.getElementById("summaryWeight").textContent = `${totalWeight.toFixed(1)} г`;
+      document.getElementById("summarySubtotal").textContent = `${subtotal} ₽`;
+      document.getElementById("summaryDiscount").textContent = discount > 0 ? `-${discount} ₽ (15%)` : "0 ₽";
+      document.getElementById("summaryDelivery").textContent = `${delivery} ₽`;
+      document.getElementById("summaryTotal").textContent = `${total.toLocaleString("ru-RU")} ₽`;
+
+      localStorage.setItem("legoCartCount", totalPieces);
+    }
+
+    cartBody.addEventListener("click", e => {
+      const btn = e.target.closest(".qty-btn");
+      if (!btn) return;
+      const delta = parseInt(btn.dataset.delta, 10);
+      const input = btn.parentElement.querySelector(".qty-input");
+      input.value = Math.max(1, parseInt(input.value || "1", 10) + delta);
+      recalcOrder();
+    });
+
+    cartBody.addEventListener("input", e => {
+      if (e.target.classList.contains("qty-input")) recalcOrder();
+    });
+
+    deliverySelect.addEventListener("change", recalcOrder);
+
+    document.getElementById("addSamplePartBtn").addEventListener("click", function() {
+      const tr = document.createElement("tr");
+      tr.dataset.price = "10";
+      tr.dataset.weight = "0.62";
+      tr.innerHTML = `
+        <td class="fw-semibold">Плитка гладкая 2x2 Жёлтая (Tile 3068b)</td>
+        <td><span class="badge bg-secondary">Grade B</span></td>
+        <td>0.62 г</td>
+        <td>10 ₽</td>
+        <td>
+          <div class="input-group input-group-sm">
+            <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="-5">-5</button>
+            <input type="number" class="form-control text-center qty-input" value="25" min="1" max="500" aria-label="Количество плиток 3068b">
+            <button class="btn btn-outline-secondary qty-btn" type="button" data-delta="5">+5</button>
+          </div>
+        </td>
+        <td class="fw-bold row-sum">250 ₽</td>`;
+      cartBody.appendChild(tr);
+      this.disabled = true;
+      this.textContent = "✓ Тестовая позиция добавлена в расчёт";
+      recalcOrder();
+    });
+
+    recalcOrder();
+
+    const fullOrderForm = document.getElementById("fullOrderForm");
+    const successBox = document.getElementById("orderPageSuccess");
+
+    fullOrderForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const newId = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById("orderNum").textContent = newId;
+      document.getElementById("trackInput").value = newId;
+      document.getElementById("trackedIdLabel").textContent = newId;
+      successBox.classList.remove("d-none");
+      fullOrderForm.reset();
+      recalcOrder();
+    });
+
+    document.getElementById("resetOrderBtn").addEventListener("click", () => {
+      successBox.classList.add("d-none");
+    });
+
+    document.getElementById("trackerForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const val = document.getElementById("trackInput").value.trim() || "1042";
+      document.getElementById("trackedIdLabel").textContent = val;
+    });
+  </script>
+</body>
+</html>

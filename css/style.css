@@ -1,0 +1,50 @@
+.placeholder-image {
+    min-height: 200px;
+}
+
+.placeholder-image-lg {
+    min-height: 400px;
+}
+
+body {
+    min-height: 100vh;
+}
+
+/* Фирменный шильдик LEGO */
+.lego-logo-badge {
+    background-color: #d01012;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 2px solid #ffcf00;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+/* Hero-блок */
+.hero-rounded {
+    border-radius: 1rem;
+}
+
+.hero-slide-primary {
+    background: linear-gradient(135deg, #0b3d91 0%, #1656c0 100%);
+}
+
+.hero-slide-secondary {
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+}
+
+/* Плавная анимация карточек товаров и статей */
+.product-card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.hero-thumb.active {
+    border-color: #0d6efd !important;
+    background-color: #e7f1ff !important;
+}

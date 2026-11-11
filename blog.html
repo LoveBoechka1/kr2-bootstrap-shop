@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блог и база знаний — LEGO Б/У Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="d-flex flex-column bg-light">
+
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+          <span class="lego-logo-badge">LEGO</span>
+          <span>Б/У Shop</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Переключить навигацию"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalog.html">Каталог</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Сборка заказа</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="blog.html">Блог и база знаний</a>
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <a href="tel:+74957773001" class="text-white text-decoration-none fw-semibold small">
+              +7 (495) 777-30-01
+            </a>
+            <a href="order.html" class="btn btn-outline-light btn-sm">Сборка заказа</a>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm fw-semibold"
+              data-bs-toggle="modal"
+              data-bs-target="#orderModal"
+              data-product="Вопрос эксперту из блога"
+            >
+              Быстрый заказ
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-5 flex-grow-1">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Главная</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Блог и база знаний</li>
+      </ol>
+    </nav>
+
+    <!-- Обязательный alert alert-info -->
+    <div class="alert alert-info" role="alert">
+      Полезные статьи, инженерные руководства и справочные таблицы для коллекционеров и MOC-билдеров. Выберите рубрику или откройте полный разбор любого материала.
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+      <h1 class="h2 mb-0">Энциклопедия конструирования и реставрации LEGO</h1>
+      <!-- Фильтр рубрик блога -->
+      <div class="btn-group" role="group" aria-label="Фильтр статей по темам">
+        <button type="button" class="btn btn-outline-primary active blog-filter-btn" data-topic="all">Все статьи (6)</button>
+        <button type="button" class="btn btn-outline-primary blog-filter-btn" data-topic="care">Мойка и реставрация</button>
+        <button type="button" class="btn btn-outline-primary blog-filter-btn" data-topic="auth">Экспертиза оригинала</button>
+        <button type="button" class="btn btn-outline-primary blog-filter-btn" data-topic="moc">Хранение и MOC</button>
+      </div>
+    </div>
+
+    <!-- Главный спецматериал (Featured Article Card) -->
+    <article class="card shadow-sm border-0 overflow-hidden mb-5">
+      <div class="row g-0 align-items-center">
+        <div class="col-12 col-lg-5 bg-dark d-flex align-items-center justify-content-center p-4" style="min-height: 280px;">
+          <svg viewBox="0 0 320 200" width="100%" height="220" aria-label="Схема проверки штампа LEGO">
+            <rect x="15" y="20" width="290" height="160" rx="14" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+            <rect x="45" y="65" width="140" height="75" rx="6" fill="#d01012" stroke="#ffffff" stroke-width="2"/>
+            <rect x="60" y="47" width="32" height="18" rx="3" fill="#ef233c" stroke="#ffffff" stroke-width="1.5"/>
+            <rect x="135" y="47" width="32" height="18" rx="3" fill="#ef233c" stroke="#ffffff" stroke-width="1.5"/>
+            <circle cx="215" cy="85" r="52" fill="rgba(56,189,248,0.18)" stroke="#38bdf8" stroke-width="4"/>
+            <line x1="252" y1="122" x2="288" y2="158" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
+            <text x="215" y="82" text-anchor="middle" fill="#ffcf00" font-family="sans-serif" font-weight="bold" font-size="16">LEGO®</text>
+            <text x="215" y="102" text-anchor="middle" fill="#e2e8f0" font-family="monospace" font-size="12">ID: 3001</text>
+          </svg>
+        </div>
+        <div class="col-12 col-lg-7">
+          <div class="card-body p-4 p-lg-5">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+              <span class="badge bg-danger">Спецматериал редакции</span>
+              <span class="text-muted small">Время чтения: 7 мин • 1 840 просмотров</span>
+            </div>
+            <h2 class="h3 fw-bold mb-3">Полный гид по проверке б/у LEGO: штампы пресс-форм, палитра оттенков и тест сцепления</h2>
+            <p class="card-text text-muted mb-4">
+              Разбираем профессиональную методику сортировки килограммовых партий: чем отличается маркировка деталей до и после 2004 года, как не перепутать Light Gray и Light Bluish Gray и как мгновенно выявить неоригинальный литник.
+            </p>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#articleModal"
+              data-article-id="original"
+            >
+              Читать полное руководство
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Сетка из 6 карточек статей (col-12 col-md-6 col-lg-4) -->
+    <section aria-label="Список статей блога">
+      <div class="row g-4" id="blogGrid">
+        <!-- Статья 1 -->
+        <div class="col-12 col-md-6 col-lg-4 blog-card-item" data-topic="care">
+          <article class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-white border-bottom d-flex align-items-center justify-content-center p-3">
+              <svg viewBox="0 0 240 135" width="210" height="120" aria-label="Ультразвуковая мойка деталей">
+                <rect x="10" y="10" width="220" height="115" rx="10" fill="#e0f2fe"/>
+                <rect x="45" y="45" width="150" height="65" rx="8" fill="#0284c7" opacity="0.2" stroke="#0284c7" stroke-width="2.5"/>
+                <rect x="75" y="65" width="55" height="28" rx="4" fill="#d01012"/>
+                <rect x="138" y="68" width="35" height="24" rx="4" fill="#ffc107"/>
+                <circle cx="65" cy="35" r="6" fill="#38bdf8"/><circle cx="120" cy="28" r="8" fill="#38bdf8"/><circle cx="170" cy="36" r="5" fill="#38bdf8"/>
+                <text x="120" y="105" text-anchor="middle" fill="#0369a1" font-family="sans-serif" font-weight="bold" font-size="13">T° MAX = 40 °C</text>
+              </svg>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-primary">Мойка и уход</span>
+                <small class="text-muted">5 мин чтения</small>
+              </div>
+              <h3 class="card-title h5">Как правильно мыть б/у детали LEGO в домашних условиях</h3>
+              <p class="card-text text-muted small">
+                Разбираем безопасный температурный режим воды (до 40 °C), деликатные ПАВ-средства и сушку на микрофибре без известковых пятен на глянце.
+              </p>
+              <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#articleModal" data-article-id="wash">
+                Читать далее
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Статья 2 -->
+        <div class="col-12 col-md-6 col-lg-4 blog-card-item" data-topic="auth">
+          <article class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-white border-bottom d-flex align-items-center justify-content-center p-3">
+              <svg viewBox="0 0 240 135" width="210" height="120" aria-label="Проверка штампа Design ID">
+                <rect x="10" y="10" width="220" height="115" rx="10" fill="#dcfce7"/>
+                <circle cx="85" cy="68" r="36" fill="#16a34a" opacity="0.15" stroke="#16a34a" stroke-width="3"/>
+                <text x="85" y="73" text-anchor="middle" fill="#15803d" font-family="sans-serif" font-weight="bold" font-size="15">LEGO</text>
+                <rect x="135" y="42" width="75" height="52" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+                <text x="172" y="65" text-anchor="middle" fill="#15803d" font-family="monospace" font-weight="bold" font-size="13">ID:3001</text>
+                <text x="172" y="82" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="10">ABS DANMARK</text>
+              </svg>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-success">Экспертиза</span>
+                <small class="text-muted">6 мин чтения</small>
+              </div>
+              <h3 class="card-title h5">5 способов отличить оригинальный кубик LEGO от аналога за 10 секунд</h3>
+              <p class="card-text text-muted small">
+                Где искать микроштамп логотипа на пинах и литой номер Design ID у мелких тайлов, скосов и прозрачных стёкол из поликарбоната.
+              </p>
+              <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#articleModal" data-article-id="original">
+                Читать далее
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Статья 3 -->
+        <div class="col-12 col-md-6 col-lg-4 blog-card-item" data-topic="moc">
+          <article class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-white border-bottom d-flex align-items-center justify-content-center p-3">
+              <svg viewBox="0 0 240 135" width="210" height="120" aria-label="Кассетницы для сортировки деталей">
+                <rect x="10" y="10" width="220" height="115" rx="10" fill="#fef3c7"/>
+                <g stroke="#b45309" stroke-width="2" fill="#ffffff">
+                  <rect x="35" y="28" width="52" height="34" rx="3"/><rect x="94" y="28" width="52" height="34" rx="3"/><rect x="153" y="28" width="52" height="34" rx="3"/>
+                  <rect x="35" y="70" width="52" height="34" rx="3"/><rect x="94" y="70" width="52" height="34" rx="3"/><rect x="153" y="70" width="52" height="34" rx="3"/>
+                </g>
+                <rect x="45" y="38" width="32" height="14" fill="#d01012"/><rect x="104" y="38" width="32" height="14" fill="#0d6efd"/><rect x="163" y="38" width="32" height="14" fill="#16a34a"/>
+                <text x="120" y="118" text-anchor="middle" fill="#92400e" font-family="sans-serif" font-weight="bold" font-size="11">СОРТИРОВКА ПО ФОРМЕ</text>
+              </svg>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-warning text-dark">Хранение и MOC</span>
+                <small class="text-muted">4 мин чтения</small>
+              </div>
+              <h3 class="card-title h5">Организация мастерской: почему нельзя сортировать детали по цвету</h3>
+              <p class="card-text text-muted small">
+                Опыт профессиональных MOC-билдеров: как устроена двухступенчатая система кассетниц по категориям геометрии деталей.
+              </p>
+              <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#articleModal" data-article-id="sort">
+                Читать далее
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Статья 4 -->
+        <div class="col-12 col-md-6 col-lg-4 blog-card-item" data-topic="care">
+          <article class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-white border-bottom d-flex align-items-center justify-content-center p-3">
+              <svg viewBox="0 0 240 135" width="210" height="120" aria-label="Отбеливание пожелтевшего пластика Retr0bright">
+                <rect x="10" y="10" width="220" height="115" rx="10" fill="#f3e8ff"/>
+                <rect x="35" y="45" width="70" height="48" rx="5" fill="#fde047" stroke="#a16207" stroke-width="2"/>
+                <path d="M112 69 H128 M123 64 L128 69 L123 74" stroke="#7e22ce" stroke-width="3" fill="none"/>
+                <rect x="135" y="45" width="70" height="48" rx="5" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+                <text x="70" y="73" text-anchor="middle" fill="#854d0e" font-family="sans-serif" font-weight="bold" font-size="11">ДО (UV)</text>
+                <text x="170" y="73" text-anchor="middle" fill="#0f172a" font-family="sans-serif" font-weight="bold" font-size="11">ПОСЛЕ H₂O₂</text>
+              </svg>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-primary">Мойка и уход</span>
+                <small class="text-muted">8 мин чтения</small>
+              </div>
+              <h3 class="card-title h5">Технология Retr0bright: как вернуть белизну пожелтевшим деталям</h3>
+              <p class="card-text text-muted small">
+                Химия фотоокисления ABS-пластика на солнце и безопасный рецепт осветления старых белых и серых кубиков перекисью водорода под УФ-лампой.
+              </p>
+              <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#articleModal" data-article-id="retrobright">
+                Читать далее
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Статья 5 -->
+        <div class="col-12 col-md-6 col-lg-4 blog-card-item" data-topic="moc">
+          <article class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-white border-bottom d-flex align-items-center justify-content-center p-3">
+              <svg viewBox="0 0 240 135" width="210" height="120" aria-label="Редукторы и шестерни LEGO Technic">
+                <rect x="10" y="10" width="220" height="115" rx="10" fill="#f1f5f9"/>
+                <circle cx="90" cy="68" r="32" fill="#94a3b8" stroke="#334155" stroke-width="5" stroke-dasharray="8 4"/>
+                <circle cx="152" cy="68" r="22" fill="#f59e0b" stroke="#b45309" stroke-width="4" stroke-dasharray="6 3"/>
+                <circle cx="90" cy="68" r="8" fill="#1e293b"/><circle cx="152" cy="68" r="6" fill="#1e293b"/>
+                <text x="120" y="116" text-anchor="middle" fill="#334155" font-family="sans-serif" font-weight="bold" font-size="11">ПЕРЕДАТОЧНОЕ ЧИСЛО 3:1</text>
+              </svg>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-info text-dark">Инженерия Technic</span>
+                <small class="text-muted">6 мин чтения</small>
+              </div>
+              <h3 class="card-title h5">Износ шестерёнок и пинов Technic: на что смотреть при покупке б/у</h3>
+              <p class="card-text text-muted small">
+                Чем отличаются фрикционные чёрные пины от серых свободно вращающихся втулок и как проверить зубья дифференциалов под нагрузкой.
+              </p>
+              <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#articleModal" data-article-id="technic">
+                Читать далее
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Статья 6 -->
+        <div class="col-12 col-md-6 col-lg-4 blog-card-item" data-topic="auth">
+          <article class="card h-100 shadow-sm product-card-hover">
+            <div class="placeholder-image bg-white border-bottom d-flex align-items-center justify-content-center p-3">
+              <svg viewBox="0 0 240 135" width="210" height="120" aria-label="Сравнение палитры цветов 2004 года">
+                <rect x="10" y="10" width="220" height="115" rx="10" fill="#f8fafc"/>
+                <rect x="35" y="38" width="75" height="55" rx="6" fill="#8b8c7a" stroke="#475569" stroke-width="2"/>
+                <rect x="130" y="38" width="75" height="55" rx="6" fill="#9ca3af" stroke="#475569" stroke-width="2"/>
+                <text x="72" y="69" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="11">Old Gray '99</text>
+                <text x="167" y="69" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="11">Bluish '04</text>
+              </svg>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-success">Экспертиза</span>
+                <small class="text-muted">5 мин чтения</small>
+              </div>
+              <h3 class="card-title h5">Великая смена палитры 2004 года: Old Gray против Light Bluish Gray</h3>
+              <p class="card-text text-muted small">
+                Почему серые и коричневые детали из наборов Star Wars 1999 года отличаются по теплоте оттенка от современных выпусков и как их сочетать.
+              </p>
+              <button type="button" class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#articleModal" data-article-id="colors">
+                Читать далее
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Справочная таблица полимеров LEGO -->
+    <section class="mt-5" aria-label="Справочная таблица материалов LEGO">
+      <h2 class="h4 mb-3">Справочник полимеров: из чего делают разные детали LEGO</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle bg-white">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Код полимера</th>
+              <th scope="col">Химическое название</th>
+              <th scope="col">Где применяется в наборах</th>
+              <th scope="col">Особенности ухода</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="fw-bold">ABS</td>
+              <td>Акрилонитрилбутадиенстирол</td>
+              <td>Базовые кубики (Bricks), пластины (Plates), тайлы и торсы минифигурок</td>
+              <td>Мойка до 40 °C, беречь от прямого ультрафиолета и ацетона</td>
+            </tr>
+            <tr>
+              <td class="fw-bold">PC (Макролон)</td>
+              <td>Ударопрочный поликарбонат</td>
+              <td>Прозрачные стёкла, визоры шлемов, световые мечи и фары</td>
+              <td>Сушить мягкой безворсовой салфеткой для защиты от микроцарапин</td>
+            </tr>
+            <tr>
+              <td class="fw-bold">PA (Нейлон)</td>
+              <td>Полиамид высокой вязкости</td>
+              <td>Шестерёнки Technic, карданные шарниры и защёлки под нагрузкой</td>
+              <td>Высокая износостойкость, не требует смазки</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Блок подписки на дайджест с вызовом Bootstrap Toast -->
+    <section class="card border-0 shadow-sm bg-dark text-white mt-5">
+      <div class="card-body p-4 p-lg-5">
+        <div class="row align-items-center g-4">
+          <div class="col-12 col-lg-7">
+            <h2 class="h4 fw-bold mb-2">Подпишитесь на уведомления о свежих партиях деталей</h2>
+            <p class="text-white-50 mb-0">
+              Раз в неделю присылаем сводку новых поступлений редких элементов Technic, Castle и Star Wars со скидкой 10% для подписчиков.
+            </p>
+          </div>
+          <div class="col-12 col-lg-5">
+            <form id="newsletterForm" class="d-flex gap-2">
+              <label for="subEmail" class="visually-hidden">Ваш E-mail</label>
+              <input type="email" id="subEmail" name="email" class="form-control" placeholder="Введите ваш e-mail" required>
+              <button type="submit" class="btn btn-warning fw-semibold text-nowrap">Подписаться</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Компонент Bootstrap Toast (из раздела 14.3 ПЗ №11) -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="subToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          Вы успешно подписаны на дайджест поступлений «LEGO Б/У Shop»!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-12 col-md-6">
+          <p class="mb-0">&copy; 2026 LEGO Б/У Shop. Учебный проект на Bootstrap 5.3 (КР №2).</p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <a class="text-white text-decoration-none me-3" href="catalog.html">Каталог</a>
+          <a class="text-white text-decoration-none me-3" href="order.html">Сборка заказа</a>
+          <a class="text-white text-decoration-none" href="blog.html">Блог и база знаний</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальное окно чтения полной статьи -->
+  <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="articleModalTitle">Статья</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body" id="articleModalBody"></div>
+        <div class="modal-footer">
+          <a href="catalog.html" class="btn btn-primary">Перейти к выбору деталей</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно заказа (ID orderModal) -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="orderModalLabel">Быстрый заказ деталей</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <div id="modalSuccessAlert" class="alert alert-success d-none" role="alert">
+            Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+          </div>
+          <form id="modalOrderForm">
+            <div class="mb-3">
+              <label for="orderName" class="form-label">Имя *</label>
+              <input type="text" class="form-control" id="orderName" name="name" placeholder="Введите ваше имя" required>
+            </div>
+            <div class="mb-3">
+              <label for="orderPhone" class="form-label">Телефон *</label>
+              <div class="input-group">
+                <span class="input-group-text">+7</span>
+                <input type="tel" class="form-control" id="orderPhone" name="phone" placeholder="900 000-00-00" required>
+              </div>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="orderAgree" name="agree" required>
+              <label class="form-check-label" for="orderAgree">
+                Согласен на обработку персональных данных *
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const ARTICLES = {
+      wash: {
+        title: "Как правильно мыть б/у детали LEGO в домашних условиях",
+        body: `
+          <p>Оригинальные кубики LEGO производятся из термопластика ABS, который расширяется и теряет расчётное трение пинов при нагреве свыше 40 °C. Чтобы очистить партию без риска деформации:</p>
+          <ol>
+            <li><strong>Замачивание при 35–38 °C:</strong> используйте тёплую воду и нейтральный гель для детской посуды без хлора и спиртов.</li>
+            <li><strong>Очистка межпинового пространства:</strong> для удаления пыли между пинами используйте мягкую кисть с синтетическим ворсом.</li>
+            <li><strong>Ополаскивание и сушка:</strong> промойте детали в сетчатом дуршлаге и разложите на полотенце из микрофибры вдали от батарей отопления и прямых солнечных лучей.</li>
+          </ol>`
+      },
+      original: {
+        title: "5 способов отличить оригинальный кубик LEGO от аналога за 10 секунд",
+        body: `
+          <p>При приёмке коллекций в «LEGO Б/У Shop» каждая деталь проходит инспекцию по заводским маркерам LEGO Group:</p>
+          <ul>
+            <li><strong>Штамп LEGO на пинах:</strong> на верхнем торце каждого пина базовых кубиков и пластин отпрессован чёткий логотип.</li>
+            <li><strong>Литой Design ID внутри:</strong> внутри трубок или на внутренней стенке указан 4- или 5-значный номер детали (например, <code>3001</code> для кирпича 2x4).</li>
+            <li><strong>Точка впрыска (Mold Mark):</strong> у оригинала след литника аккуратно спрятан на боковой грани пина и никогда не образует острых заусенцев.</li>
+          </ul>`
+      },
+      sort: {
+        title: "Организация мастерской: почему нельзя сортировать детали по цвету",
+        body: `
+          <p>Главное правило опытных строителей самоделок (MOC): <strong>всегда сортируйте сначала по форме, и только потом по цвету</strong>.</p>
+          <p>В контейнере с разноцветными пластинами 1x2 вы найдёте красную деталь за полсекунды. Но в ящике, доверху заполненном однотонными чёрными деталями всех форм, поиск одной чёрной клипсы займёт несколько минут.</p>`
+      },
+      retrobright: {
+        title: "Технология Retr0bright: как вернуть белизну пожелтевшим деталям",
+        body: `
+          <p>Пожелтение старого белого и светло-серого пластика вызвано окислением антипиреновых добавок под воздействием ультрафиолета. Процесс обратим:</p>
+          <ul>
+            <li>Погрузите вымытые детали в прозрачную ёмкость с 3%-ным раствором перекиси водорода.</li>
+            <li>Разместите ёмкость под УФ-лампой на 3–5 часов, периодически перемешивая кубики для равномерной реакции.</li>
+            <li>Тщательно промойте детали чистой водой и просушите.</li>
+          </ul>`
+      },
+      technic: {
+        title: "Износ шестерёнок и пинов Technic: на что смотреть при покупке б/у",
+        body: `
+          <p>В серии LEGO Technic критически важно состояние продольных прорезей на соединительных пинах (артикулы 2780 и 43093) и геометрия зубьев шестерён Z12, Z20 и Z24.</p>
+          <p>Перед продажей мы отбраковываем все пины с побелевшими от перегрузки краями и проверяем оси на отсутствие продольного изгиба прокатыванием по калибровочной плите.</p>`
+      },
+      colors: {
+        title: "Великая смена палитры 2004 года: Old Gray против Light Bluish Gray",
+        body: `
+          <p>В 2004 году компания LEGO заменила классический тёплый серый оттенок (Light Gray) на более холодный «голубовато-серый» (Light Bluish Gray / Medium Stone Gray).</p>
+          <p>В нашем каталоге детали старой палитры до 2003 года выделены в категорию <strong>Винтаж</strong>, чтобы реставраторы ретро-наборов получали 100% попадание в тон эпохи.</p>`
+      }
+    };
+
+    // Фильтрация карточек блога по рубрикам
+    document.querySelectorAll(".blog-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".blog-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const topic = btn.dataset.topic;
+        document.querySelectorAll(".blog-card-item").forEach(card => {
+          card.classList.toggle("d-none", topic !== "all" && card.dataset.topic !== topic);
+        });
+      });
+    });
+
+    const articleModal = document.getElementById("articleModal");
+    articleModal.addEventListener("show.bs.modal", event => {
+      const btn = event.relatedTarget;
+      const id = btn ? btn.getAttribute("data-article-id") : "wash";
+      const data = ARTICLES[id] || ARTICLES.wash;
+      document.getElementById("articleModalTitle").textContent = data.title;
+      document.getElementById("articleModalBody").innerHTML = data.body;
+    });
+
+    // Подписка с вызовом Bootstrap Toast
+    document.getElementById("newsletterForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const toastEl = document.getElementById("subToast");
+      const toast = new bootstrap.Toast(toastEl);
+      toast.show();
+      e.target.reset();
+    });
+
+    document.getElementById("modalOrderForm").addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById("modalSuccessAlert").classList.remove("d-none");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
